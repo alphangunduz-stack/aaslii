@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aslı'nın Çiçek Bahçesi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Caveat:wght@400;700&family=Indie+Flower&display=swap" rel="stylesheet">
+    <style>
+        /* Genel Ayarlar */
+        :root {
+            --primary-yellow: #FFD700; /* Altın sarısı */
+            --soft-yellow: #FFFACD;    /* Limon sarısı */
+            --soft-pink: #FFB6C1;     /* Açık pembe */
+            --dark-pink: #FF69B4;     /* Koyu pembe (parıltı için) */
+            --text-color: #333;
+            --light-text-color: #555;
+            --bg-color: #F8F8FF; /* Hafif lavanta beyazı */
+        }
+
+        body {
+            font-family: 'Caveat', cursive, sans-serif; /* Daha yumuşak el yazısı fontu */
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden; /* Yatay kaydırmayı önle */
+        }
+
+        /* Piksel Parıltılı Yazı Tipi Benzeri */
+        h1, h2, h3, .pixel-text {
+            font-family: 'Press Start 2P', cursive; /* Piksel fontu */
+            color: var(--dark-pink);
+            text-shadow: 
+                0 0 5px var(--soft-pink),
+                0 0 10px var(--soft-pink),
+                0 0 15px var(--soft-pink),
+                0 0 20px var(--soft-pink); /* Hafif parıltı efekti */
+            letter-spacing: 2px;
+            font-size: 1.5em; /* Başlıklarda piksel fontu daha belirgin */
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--dark-pink);
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--primary-yellow);
+        }
+
+        /* Header */
+        header {
+            background-color: var(--soft-pink);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.8em;
+            color: var(--dark-pink);
+            text-shadow: 
+                0 0 3px var(--soft-yellow),
+                0 0 6px var(--soft-yellow);
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 25px;
+        }
+
+        nav ul li a {
+            color: white;
+            font-family: 'Indie Flower', cursive; /* Header linkleri için farklı bir font */
+            font-weight: 700;
+            font-size: 1.2em;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: var(--primary-yellow);
+            color: var(--dark-pink);
+        }
+
+        /* Hero Bölümü */
+        .hero {
+            position: relative;
+            height: 600px; /* Daha yüksek bir hero alanı */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1547039021-d70a92d8e411?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
+            filter: brightness(0.7); /* Görseli hafif karart */
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            color: var(--soft-yellow); /* Başlığı yumuşak sarı yap */
+            text-shadow: 
+                2px 2px 4px rgba(0,0,0,0.5),
+                0 0 10px var(--dark-pink); /* Daha belirgin parıltı */
+        }
+
+        .hero p {
+            font-size: 1.5em;
+            max-width: 700px;
+            color: rgba(255,255,255,0.9);
+            font-family: 'Indie Flower', cursive;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+        }
+
+        /* Bölümler (Section) */
+        section {
+            padding: 80px 50px;
+            margin: 0 auto;
+            max-width: 1000px;
+            text-align: center;
+        }
+
+        section:nth-child(even) {
+            background-color: var(--soft-yellow);
+        }
+
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            color: var(--dark-pink);
+            text-shadow: 
+                0 0 8px var(--soft-pink),
+                0 0 15px var(--soft-pink); /* Daha güçlü parıltı */
+        }
+
+        /* Hakkında Bölümü */
+        #hakkinda p {
+            font-size: 1.3em;
+            color: var(--light-text-color);
+            line-height: 1.8;
+            font-family: 'Caveat', cursive;
+        }
+
+        /* Projeler Bölümü */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .project-card {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            padding: 30px;
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--soft-pink);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(to right, var(--primary-yellow), var(--soft-pink));
+            border-radius: 13px 13px 0 0;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .project-card h3 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.4em;
+            color: var(--dark-pink);
+            margin-bottom: 15px;
+            text-shadow: 
+                0 0 5px var(--soft-pink),
+                0 0 10px var(--soft-pink);
+        }
+
+        .project-card p {
+            font-family: 'Caveat', cursive;
+            color: var(--light-text-color);
+            font-size: 1.1em;
+        }
+
+        /* İletişim Bölümü */
+        #iletisim p {
+            font-size: 1.3em;
+            color: var(--light-text-color);
+            font-family: 'Caveat', cursive;
+        }
+
+        #iletisim a {
+            font-weight: bold;
+            color: var(--dark-pink);
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.1em;
+            text-shadow: 
+                0 0 5px var(--soft-pink),
+                0 0 10px var(--soft-pink);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--soft-pink);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+            font-family: 'Indie Flower', cursive;
+            font-size: 1.1em;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+        }
+
+        .footer-logo {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.5em;
+            color: var(--dark-pink);
+            text-shadow: 
+                0 0 3px var(--soft-yellow),
+                0 0 6px var(--soft-yellow);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* Responsive Tasarım */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px;
+            }
+
+            .logo {
+                margin-bottom: 15px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin: 5px 0;
+            }
+
+            .hero h1 {
+                font-size: 2.5em;
+            }
+
+            .hero p {
+                font-size: 1.2em;
+            }
+
+            h2 {
+                font-size: 2em;
+            }
+
+            section {
+                padding: 50px 20px;
+            }
+
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Aslı'nın Bahçesi</div>
+        <nav>
+            <ul>
+                <li><a href="#anasayfa">Anasayfa</a></li>
+                <li><a href="#hakkinda">Hakkında</a></li>
+                <li><a href="#projelerim">Projelerim</a></li>
+                <li><a href="#iletisim">İletişim</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="hero" id="anasayfa">
+        <h1>Hoş Geldin, Gezgin!</h1>
+        <p>Aslı'nın hayal dünyasına, renkli projelere ve minik keşiflere hoş geldiniz. Birlikte eğlenelim!</p>
+    </div>
+
+    <section id="hakkinda">
+        <h2>Hakkımda</h2>
+        <p>Merhaba! Ben Aslı. Henüz 11 yaşındayım ama hayal gücüm kocaman! En sevdiğim renk sarı; özellikle soft tonlar ruhumu okşuyor. Minimalist tasarımları ve yazıları çok beğenirim. Bu web sitesi benim dijital bahçem, burada hayallerimi ve projelerimi sizlerle paylaşıyorum.</p>
+    </section>
+
+    <section id="projelerim">
+        <h2>Projelerim</h2>
+        <div class="project-grid">
+            <div class="project-card">
+                <h3>Minecraft: Yaratıcı Şehirler</h3>
+                <p>Minecraft'ın yaratıcı modunda kendi hayalimdeki şehirleri ve evleri tasarlıyorum. Genellikle sarı ve pembe tonlarını kullanarak, minimalist ama işlevsel yapılar oluşturmayı seviyorum. Gizli bahçeler, şelaleler ve gökyüzü adaları benim favorim!</p>
+            </div>
+            <div class="project-card">
+                <h3>Scratch: Eğlenceli Oyunlar</h3>
+                <p>Scratch ile basit ama eğlenceli oyunlar yapmayı seviyorum. Kediler, çiçekler ve pastel renklerle dolu oyunlar tasarlıyorum. Özellikle sarı zıplayan toplar ve pembe engellerle dolu parkur oyunlarım çok ilgi görüyor!</p>
+            </div>
+            <div class="project-card">
+                <h3>Dijital Çiçek Bahçeleri</h3>
+                <p>Dijital çizim programları kullanarak kendi çiçek temalı görsellerimi oluşturuyorum. Sarı papatyalar, pembe güller ve soft yeşil yapraklarla dolu, göz alıcı tasarımlar yapıyorum. Bunları bazen web sitemde kullanmak için hazırlıyorum.</p>
+            </div>
+        </div>
+        <p style="margin-top: 40px; font-size: 1.2em; font-family: 'Caveat', cursive; color: var(--light-text-color);">Burada daha birçok yaratıcı projemi sizlerle paylaşmaya devam edeceğim. Takipte kalın!</p>
+    </section>
+
+    <section id="iletisim">
+        <h2>İletişim</h2>
+        <p>Benimle iletişime geçmek istersen, aşağıdaki e-posta adresime bir mail gönderebilirsin!</p>
+        <p><a href="mailto:asli@example.com">asli@example.com</a></p>
+        <p style="font-size: 0.9em; margin-top: 20px; font-family: 'Caveat', cursive; color: var(--light-text-color);">*Bu bir örnek e-posta adresidir. Gerçek bir adres kullanmak istersen değiştirmelisin.</p>
+    </section>
+
+    <footer>
+        <span class="footer-logo">Aslı'nın Bahçesi</span>
+        <p>&copy; 2023 Tüm Hakları Saklıdır.</p>
+    </footer>
+
+</body>
+</html>
